@@ -8,8 +8,13 @@ const dataSchema = z.object({
   values: z.array(z.union([z.string(), z.number()])),
 })
 
+type Data = z.infer<typeof dataSchema>
+
+function output(data: Data) {
+  console.log(data)
+}
+
 const content = JSON.parse(fs.readFileSync('data.json').toString())
 
 const parsedData = dataSchema.parse(content)
-
-console.log('parsedData:', parsedData)
+output(parsedData)
